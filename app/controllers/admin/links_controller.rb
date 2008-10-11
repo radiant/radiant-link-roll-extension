@@ -1,3 +1,3 @@
-class Admin::LinksController < ApplicationController
-  scaffold :link
+class Admin::LinksController < Admin::AbstractModelController
+  model_class Link
 end

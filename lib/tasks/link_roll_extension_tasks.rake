@@ -11,7 +11,18 @@ namespace :radiant do
           LinkRollExtension.migrator.migrate
         end
       end
-    
+      
+      desc "Copies public assets of the Link Roll to the instance public/ directory."
+      task :update => :environment do
+        is_svn_or_dir = proc {|path| path =~ /\.svn/ || File.directory?(path) }
+        Dir[LinkRollExtension.root + "/public/**/*"].reject(&is_svn_or_dir).each do |file|
+          path = file.sub(LinkRollExtension.root, '')
+          directory = File.dirname(path)
+          puts "Copying #{path}..."
+          mkdir_p RAILS_ROOT + directory
+          cp file, RAILS_ROOT + path
+        end
+      end  
     end
   end
 end

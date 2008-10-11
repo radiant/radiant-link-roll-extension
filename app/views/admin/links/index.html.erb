@@ -1,0 +1,33 @@
+<% include_stylesheet 'admin/links/links' %>
+
+<h1>Links</h1>
+
+<p>You can enter links here, which will show up on the public side of your website.</p>
+
+<table cellspacing="0" cellpadding="0" border="0" class="index" id="links">
+
+  <thead>
+    <tr>
+      <th class="link">Link</th>
+      <th class="modify">Modify</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <%# @links.each do |link| %>
+    <% Link.find(:all).each do |link| %>
+      <tr class="node level-1">
+        <td class="link">
+          <%# image('links/link') %>
+          <%= link_to link.title, link_edit_url(:id => link.id) %>
+        </td>
+        <td class="remove">
+          <%= link_to image('remove', :alt => 'Remove link'), link_remove_url(:id => link.id) %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+
+</table>
+
+<p><%= link_to image("links/new-link", :alt => "New link"), {:action => :new} %></p>
